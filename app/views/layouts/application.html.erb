@@ -33,7 +33,11 @@
       <ul class="nav navbar-nav">
         <li class="<%= controller_name == "home" ? "active" : "" %>"><%= link_to "Home", root_path %></li>
         <li class="<%= controller_name == "organisations" ? "active" : "" %>"><%= link_to "Organisations", organisations_path %></li>
-        <li class="pull-right"><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+        <% if user_signed_in? %>
+          <li class="pull-right"><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+        <% else %>
+          <li class="pull-right"><%= link_to "Sign in", new_user_session_path %></li>
+        <% end %>
         <li class="pull-right">
         <% if user_signed_in? %>
             <form class="pull-right">

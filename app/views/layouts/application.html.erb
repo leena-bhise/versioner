@@ -40,9 +40,11 @@
         <% end %>
         <li class="pull-right">
         <% if user_signed_in? %>
-            <form class="pull-right">
-              <%= link_to "New Article", new_organisation_article_path(current_user.organisation), class: "btn navbar-btn btn-danger" %>
-            </form>
+            <% if current_user.organisation.present? %>
+              <form class="pull-right">
+                <%= link_to "New Article", new_organisation_article_path(current_user.organisation), class: "btn navbar-btn btn-danger" %>
+              </form>
+            <% end %>
         <% end %>
         </li>
       </ul>

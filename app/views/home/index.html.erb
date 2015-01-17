@@ -1,4 +1,6 @@
 <div class="jumbotron text-center">
   <h1>Hello <%= current_user.name %></h1>
-  <p>  <%= link_to "New Article", new_organisation_article_path(current_user.organisation), class: "btn btn-success btn-lg" %>  </p>
+  <% if current_user.organisation.present? %>
+    <p>  <%= link_to "New Article", new_organisation_article_path(current_user.organisation), class: "btn btn-success btn-lg" %>  </p>
+  <% end %>
 </div>

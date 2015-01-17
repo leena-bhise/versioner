@@ -6,7 +6,7 @@ Then /^I should see header links$/ do
   within first("div.navbar-fixed-top ul.nav") do
     page.should have_link('Home')
     page.should have_link('Organisations')
-    page.should have_link('Sign out')
+    page.should have_link('Sign in')
   end
 end
 

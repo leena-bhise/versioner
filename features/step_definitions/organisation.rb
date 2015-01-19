@@ -48,8 +48,8 @@ Then /^I click on organisation and see information for a organization without ar
 end
 
 Then /^I click on organisation and see information for a organization with articles$/ do
-  organisation = FactoryGirl.create(:organisation)
-  article = FactoryGirl.create(:article, {:organisation_id => organisation.id})
+  organisation = FactoryGirl.create(:organisation_with_article)
+  article = organisation.articles.first
   within first("div.navbar-fixed-top ul.nav") do
     page.should have_link('Organisations')
     click_link "Organisations"

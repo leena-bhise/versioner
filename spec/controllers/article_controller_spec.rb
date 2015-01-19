@@ -40,8 +40,8 @@ RSpec.describe ArticlesController, :type => :controller do
   
   describe "GET #edit" do
     it "should responds with edit template" do
-      organisation = FactoryGirl.create(:organisation)
-      article = FactoryGirl.create(:article, {:organisation_id => organisation.id})
+      organisation = FactoryGirl.create(:organisation_with_article)
+      article = organisation.articles.first
       get :edit, {:organisation_id => organisation.id, :id => article.id}
       expect(response).to be_success
       expect(response).to render_template(:edit)
@@ -50,10 +50,10 @@ RSpec.describe ArticlesController, :type => :controller do
   
   describe "PUT #update" do
     it "should update article with valid fields" do
-      organisation = FactoryGirl.create(:organisation)
-      article = FactoryGirl.create(:article, {:organisation_id => organisation.id})
-      article.title.should eq("Test Article title")
-      article.body.should eq("Test Article body")
+      organisation = FactoryGirl.create(:organisation_with_article)
+      article = organisation.articles.first
+      article.title.should eq("Test Article title for organization")
+      article.body.should eq("Test Article body for organization")
       put :update, {:organisation_id => organisation.id, :id => article.id, :article => {:title => 'Test Art updated', :body => 'Test Art body updated', :organisation_id => organisation.id }}
       assigns[:article].title.should eq("Test Art updated")
       assigns[:article].body.should eq("Test Art body updated")
@@ -61,10 +61,10 @@ RSpec.describe ArticlesController, :type => :controller do
     end
     
     it "should not update article without required fields" do
-      organisation = FactoryGirl.create(:organisation)
-      article = FactoryGirl.create(:article, {:organisation_id => organisation.id})
-      article.title.should eq("Test Article title")
-      article.body.should eq("Test Article body")
+      organisation = FactoryGirl.create(:organisation_with_article)
+      article = organisation.articles.first
+      article.title.should eq("Test Article title for organization")
+      article.body.should eq("Test Article body for organization")
       put :update, {:organisation_id => organisation.id, :id => article.id, :article => {:title => '', :body => '', :organisation_id => organisation.id }}
       assigns(:article).errors.present?.should eq(true)
       expect(response).to render_template(:edit)
@@ -73,8 +73,8 @@ RSpec.describe ArticlesController, :type => :controller do
   
   describe "GET #show" do
     it "should responds with edit template" do
-      organisation = FactoryGirl.create(:organisation)
-      article = FactoryGirl.create(:article, {:organisation_id => organisation.id})
+      organisation = FactoryGirl.create(:organisation_with_article)
+      article = organisation.articles.first
       get :edit, {:organisation_id => organisation.id, :id => article.id}
       expect(response).to be_success
     end

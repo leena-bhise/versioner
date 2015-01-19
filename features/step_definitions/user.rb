@@ -31,6 +31,8 @@ end
 
 Then /^I fill email and password and click on submit$/ do
   user = FactoryGirl.create(:user)
+  organisation = FactoryGirl.create(:organisation)
+  article = FactoryGirl.create(:article, :organisation_id => organisation.id, :user_id => user.id)
   within ("#new_user") do
     fill_in "user_email", :with => user.email
     fill_in "user_password", :with => user.password
